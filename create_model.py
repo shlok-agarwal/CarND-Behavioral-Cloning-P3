@@ -24,7 +24,7 @@ X_train = np.array(images)
 y_train = np.array(measurements)
 
 from keras.models import Sequential
-from keras.layers import Flatten, Dense, Lambda, Convolution2D, MaxPool2D
+from keras.layers import Flatten, Dense, Lambda, Conv2D, MaxPool2D
 
 model = Sequential()
 model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(160,320,3)))
@@ -36,9 +36,10 @@ def simple(model):
     return model
 
 def LeNet(model):
-    model.add(Convolution2D(6,5,5,activation="relu"))
+    # ref: Conv2D( filters, kernel_size, ..)
+    model.add(Conv2D(6,5,activation="relu"))
     model.add(MaxPool2D())
-    model.add(Convolution2D(6,5,5,activation="relu"))
+    model.add(Conv2D(6,5,activation="relu"))
     model.add(MaxPool2D())
     model.add(Flatten())
     model.add(Dense(120))
