@@ -62,8 +62,23 @@ def LeNet(model):
     model.add(Dense(1))
     return model
 
+def Nvidia(model):
+    model.add(Conv2D(24,5, strides=(2,2), activation="relu"))
+    model.add(Conv2D(36,5, strides=(2,2), activation="relu"))
+    model.add(Conv2D(48,5, strides=(2,2), activation="relu"))
+    model.add(Conv2D(64,3, activation="relu"))
+    model.add(Conv2D(64,3, activation="relu"))
+    model.add(Flatten())
+    model.add(Dense(100))
+    model.add(Dense(50))
+    model.add(Dense(10))
+    model.add(Dense(1))
+    return model
+
 # model = simple(model)
-model = LeNet(model)
+# model = LeNet(model)
+model = Nvidia(model)
+
 
 model.compile(loss='mse', optimizer='adam')
 model.fit(X_train, y_train, validation_split=0.2, shuffle=True, epochs= 7)
