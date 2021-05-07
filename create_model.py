@@ -30,10 +30,10 @@ model = Sequential()
 model.add(Cropping2D(cropping=((70,25), (0,0)), input_shape=(160,320,3)))
 model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(160,320,3)))
 
-model = simple(model)
+# model = simple(model)
 # model = LeNet(model)
-# model = Nvidia(model)
-# print(model.summary())
+model = Nvidia(model)
+print(model.summary())
 
 model.compile(loss='mse', optimizer='adam')
 history_object = model.fit_generator(train_generator, 
