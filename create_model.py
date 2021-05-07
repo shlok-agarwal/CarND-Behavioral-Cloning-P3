@@ -2,9 +2,11 @@ import csv
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
-
+import sklearn
+from sklearn.model_selection import train_test_split
 from keras.models import Sequential
-from keras.layers import Flatten, Dense, Lambda, Conv2D, MaxPool2D, Cropping2D
+from keras.layers import Lambda, Cropping2D
+from models import simple, LeNet, Nvidia
 
 lines = []
 with open('data/data/driving_log.csv') as csvfile:
@@ -46,40 +48,9 @@ model = Sequential()
 model.add(Cropping2D(cropping=((70,25), (0,0)), input_shape=(160,320,3)))
 model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(160,320,3)))
 
-def simple(model):
-    
-    model.add(Flatten())
-    model.add(Dense(1))
-    return model
-
-def LeNet(model):
-    # ref: Conv2D( filters, kernel_size, ..)
-    model.add(Conv2D(6,5,activation="relu"))
-    model.add(MaxPool2D())
-    model.add(Conv2D(6,5,activation="relu"))
-    model.add(MaxPool2D())
-    model.add(Flatten())
-    model.add(Dense(120))
-    model.add(Dense(84))
-    model.add(Dense(1))
-    return model
-
-def Nvidia(model):
-    model.add(Conv2D(24,5, strides=(2,2), activation="relu"))
-    model.add(Conv2D(36,5, strides=(2,2), activation="relu"))
-    model.add(Conv2D(48,5, strides=(2,2), activation="relu"))
-    model.add(Conv2D(64,3, activation="relu"))
-    model.add(Conv2D(64,3, activation="relu"))
-    model.add(Flatten())
-    model.add(Dense(100))
-    model.add(Dense(50))
-    model.add(Dense(10))
-    model.add(Dense(1))
-    return model
-
-# model = simple(model)
+model = simple(model)
 # model = LeNet(model)
-model = Nvidia(model)
+# model = Nvidia(model)
 
 
 model.compile(loss='mse', optimizer='adam')
