@@ -6,7 +6,7 @@ import sklearn
 from sklearn.model_selection import train_test_split
 from keras.models import Sequential
 from keras.layers import Lambda, Cropping2D
-from models import simple, LeNet, Nvidia, ResNet
+from models import *
 from preprocess_data import generator
 
 samples = []
@@ -33,7 +33,7 @@ model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(160,320,3)))
 # model = simple(model)
 # model = LeNet(model)
 # model = Nvidia(model)
-model = ResNet(model)
+model = GoogLeNet(model)
 
 print(model.summary())
 

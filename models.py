@@ -1,6 +1,7 @@
 from keras.layers import Flatten, Dense, Conv2D, MaxPool2D, Lambda, Dropout, GlobalAveragePooling2D
 from keras.models import Sequential
 from keras.applications.resnet50 import ResNet50
+from keras.applications.inception_v3 import InceptionV3
 
 def simple(model):
     
@@ -46,7 +47,16 @@ def ResNet(model):
     # using sequential model
     model.add(ResNet50(weights=None, include_top=False))
     model.add(GlobalAveragePooling2D())
-    model.add(Dropout(0.7))
+    model.add(Dense(512))
+    model.add(Dense(1))
+    return model
+
+def GoogLeNet(model):
+    # using sequential model
+    model.add(InceptionV3(weights=None, include_top=False))
+    model.add(GlobalAveragePooling2D())
+    model.add(Dense(512))
+    model.add(Dense(10))
     model.add(Dense(1))
     return model
 
