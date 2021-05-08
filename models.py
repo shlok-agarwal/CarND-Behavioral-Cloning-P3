@@ -1,4 +1,5 @@
-from keras.layers import Flatten, Dense, Conv2D, MaxPool2D
+from keras.layers import Flatten, Dense, Conv2D, MaxPool2D, Lambda
+from keras.models import Sequential
 
 def simple(model):
     
@@ -30,3 +31,9 @@ def Nvidia(model):
     model.add(Dense(10))
     model.add(Dense(1))
     return model
+
+if __name__ == "__main__":
+    model = Sequential()
+    model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(160,320,3)))
+    model = Nvidia(model)
+    print(model.summary())
