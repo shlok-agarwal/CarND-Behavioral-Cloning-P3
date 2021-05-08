@@ -1,5 +1,6 @@
-from keras.layers import Flatten, Dense, Conv2D, MaxPool2D, Lambda
+from keras.layers import Flatten, Dense, Conv2D, MaxPool2D, Lambda, Dropout, GlobalAveragePooling2D
 from keras.models import Sequential
+from keras.applications.resnet50 import ResNet50
 
 def simple(model):
     
@@ -32,8 +33,25 @@ def Nvidia(model):
     model.add(Dense(1))
     return model
 
+def ResNet(model):
+    # using model API for reference
+    # resnet = ResNet50(weights=None, include_top=False, input_shape=(65,320,3))
+    # # adding top layers
+    # x = resnet.output
+    # x = GlobalAveragePooling2D()(x) # pooling
+    # x = Dropout(0.7)(x) # dropout
+    # predictions = Dense(1)(x)
+    # model = Model(inputs = resnet.input, outputs = predictions)
+
+    # using sequential model
+    model.add(ResNet50(weights=None, include_top=False))
+    model.add(GlobalAveragePooling2D())
+    model.add(Dropout(0.7))
+    model.add(Dense(1))
+    return model
+
 if __name__ == "__main__":
     model = Sequential()
     model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(160,320,3)))
-    model = Nvidia(model)
+    model = ResNet(model)
     print(model.summary())
