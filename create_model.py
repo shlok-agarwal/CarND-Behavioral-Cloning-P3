@@ -8,6 +8,7 @@ from keras.models import Sequential
 from keras.layers import Lambda, Cropping2D
 from models import *
 from preprocess_data import generator
+from resnet import build_ResNet
 
 samples = []
 with open('data/data/driving_log.csv') as csvfile:
@@ -20,7 +21,7 @@ from sklearn.model_selection import train_test_split
 train_samples, validation_samples = train_test_split(samples, test_size=0.2)
 
 # Set our batch size
-batch_size=2
+batch_size=16
 
 # compile and train the model using the generator function
 train_generator = generator(train_samples, batch_size=batch_size)
@@ -35,9 +36,10 @@ validation_generator = generator(validation_samples, batch_size=batch_size)
 # model = Nvidia(model)
 # model = GoogLeNet(model)
 
-model = ResNet2()
+# model = ResNet2()
+# model = build_ResNet('ResNet18', 1)
 
-print(model.summary())
+# print(model.summary())
 
 model.compile(loss='mse', optimizer='adam')
 history_object = model.fit_generator(train_generator, 

@@ -2,6 +2,7 @@ from keras.layers import Flatten, Dense, Conv2D, MaxPool2D, Lambda, Dropout, Glo
 from keras.models import Sequential, Model
 from keras.applications.resnet50 import ResNet50
 from keras.applications.inception_v3 import InceptionV3
+from resnet import build_ResNet
 
 def simple(model):
     
@@ -48,6 +49,21 @@ def ResNet():
     # Creates the model, assuming your final layer is named "predictions"
     model = Model(inputs=model_input, outputs=predictions)
     return model
+
+def ResNet18():
+    
+    # Makes the input placeholder layer 160,320,3
+    model_input = Input(shape=(160,320,3))
+    crop = Cropping2D(cropping=((70,25), (0,0)), input_shape=(160,320,3))(model_input)
+    inp = Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(65,320,3))(crop)
+    predictions = build_ResNet('ResNet18', 1)(inp)
+    # pool = GlobalAveragePooling2D()(resnet)
+    # fc1 = Dense(512, activation='relu')(pool)
+    # fc2 = Dense(10)(fc1)
+    # predictions = Dense(1)(fc2)
+    # Creates the model, assuming your final layer is named "predictions"
+    # model = Model(inputs=model_input, outputs=predictions)
+    return predictions
     
 def GoogLeNet(model):
     # using sequential model
@@ -62,5 +78,8 @@ if __name__ == "__main__":
     # model = Sequential()
     # model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(160,320,3)))
     # model = ResNet(model)
-    model = ResNet2()
+    # model = build_ResNet('ResNet18', 1)
+    # model.build(input_shape=(None, 65, 320, 3))
+    model = ResNet18()
+    
     print(model.summary())
