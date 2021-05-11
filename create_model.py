@@ -20,20 +20,22 @@ from sklearn.model_selection import train_test_split
 train_samples, validation_samples = train_test_split(samples, test_size=0.2)
 
 # Set our batch size
-batch_size=32
+batch_size=2
 
 # compile and train the model using the generator function
 train_generator = generator(train_samples, batch_size=batch_size)
 validation_generator = generator(validation_samples, batch_size=batch_size)
 
-model = Sequential()
-model.add(Cropping2D(cropping=((70,25), (0,0)), input_shape=(160,320,3)))
-model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(160,320,3)))
+# model = Sequential()
+# model.add(Cropping2D(cropping=((70,25), (0,0)), input_shape=(160,320,3)))
+# model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(160,320,3)))
 
 # model = simple(model)
 # model = LeNet(model)
 # model = Nvidia(model)
-model = GoogLeNet(model)
+# model = GoogLeNet(model)
+
+model = ResNet2()
 
 print(model.summary())
 
