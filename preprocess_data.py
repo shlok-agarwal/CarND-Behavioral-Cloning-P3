@@ -42,3 +42,34 @@ def generator(samples, batch_size=32, correct_factor = 0.2, num_cameras = 3):
             X_train = np.array(augmented_images)
             y_train = np.array(augmented_measurements)
             yield sklearn.utils.shuffle(X_train, y_train)
+
+def getDataSet(samples):
+    images =[]
+    measurements = []
+    correct_factor = 0.2
+    num_cameras = 3
+    for line in samples:
+        for i in range(num_cameras):
+            source_path = line[i]
+            filename = source_path.split('/')[-1]
+            current_path = 'data/data/IMG/' + filename
+            image = cv2.imread(current_path)
+            images.append(image)
+            measurement = float(line[3])
+            if i == 1: # left camera, steer right
+                measurement += correct_factor
+            elif i == 2: # right camera, steer left
+                measurement -= correct_factor
+            measurements.append(measurement)
+
+    augmented_images, augmented_measurements = [], []
+    for image, measurement in zip(images, measurements):
+        augmented_images.append(image)
+        augmented_measurements.append(measurement)
+        augmented_images.append(cv2.flip(image, 1))
+        augmented_measurements.append(measurement*-1.0)
+
+    # Neural networks
+    X_train = np.array(augmented_images)
+    y_train = np.array(augmented_measurements)
+    return X_train, y_train
