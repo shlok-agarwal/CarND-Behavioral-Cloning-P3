@@ -11,6 +11,7 @@ from tensorflow.keras.regularizers import l2
 from tensorflow.keras import backend as K
 from tensorflow.keras.models import Model
 from tensorflow.keras.datasets import cifar10
+import tensorflow as tf
 import numpy as np
 
 def lr_schedule(epoch):
@@ -120,7 +121,9 @@ def resnet_v1(input_shape, depth, num_classes=1):
 
     inputs = Input(shape=input_shape)
     crop = Cropping2D(cropping=((70,25), (0,0)), input_shape=(160,320,3))(inputs)
-    inp = Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(65,320,3))(crop)
+    # Re-sizes the input with Kera's Lambda layer & attach to crop layer
+    resized_input = Lambda(lambda image: tf.image.resize(image, (224, 320)))(crop)
+    inp = Lambda(lambda x: (x / 255.0) - 0.5)(resized_input)
     x = resnet_layer(inputs=inp)
     # Instantiate the stack of residual units
     for stack in range(3):

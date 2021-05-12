@@ -71,7 +71,7 @@ def GoogLeNet():
     # Makes the input placeholder layer 160,320,3
     model_input = Input(shape=(160,320,3))
     crop = Cropping2D(cropping=((70,25), (0,0)), input_shape=(160,320,3))(model_input)
-    # Re-sizes the input with Kera's Lambda layer & attach to cifar_input
+    # Re-sizes the input with Kera's Lambda layer & attach to crop layer
     resized_input = Lambda(lambda image: tf.image.resize(image, (139, 210)))(crop)
     inp = Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(65,320,3))(resized_input)
     inception = InceptionV3(weights=None, include_top=False)(model_input) #(inp)
