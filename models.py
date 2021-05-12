@@ -29,19 +29,23 @@ def LeNet():
     return model
 
 def Nvidia():
-    model = Sequential()
-    model.add(Cropping2D(cropping=((70,25), (0,0)), input_shape=(160,320,3)))
-    model.add(Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(160,320,3)))
-    model.add(Conv2D(24,5, strides=(2,2), activation="relu"))
-    model.add(Conv2D(36,5, strides=(2,2), activation="relu"))
-    model.add(Conv2D(48,5, strides=(2,2), activation="relu"))
-    model.add(Conv2D(64,3, activation="relu"))
-    model.add(Conv2D(64,3, activation="relu"))
-    model.add(Flatten())
-    model.add(Dense(100))
-    model.add(Dense(50))
-    model.add(Dense(10))
-    model.add(Dense(1))
+    # Makes the input placeholder layer 160,320,3
+    model_input = Input(shape=(160,320,3))
+    crop = Cropping2D(cropping=((70,25), (0,0)), input_shape=(160,320,3))(model_input)
+    inp = Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(65,320,3))(crop)
+
+    c1 = Conv2D(24,5, strides=(2,2), activation="relu")(crop)
+    c2 = Conv2D(36,5, strides=(2,2), activation="relu")(c1)
+    c3 = Conv2D(48,5, strides=(2,2), activation="relu")(c2)
+    c4 = Conv2D(64,3, activation="relu")(c3)
+    c5 = Conv2D(64,3, activation="relu")(c4)
+
+    f = Flatten()(c5)
+    fc1 = Dense(100)(f)
+    fc2 = Dense(50)(fc1)
+    fc3 = Dense(10)(fc2)
+    predictions = Dense(1)(fc3)
+    model = Model(inputs=model_input, outputs=predictions)
     return model
 
 def Resnet_50():
@@ -80,5 +84,5 @@ def GoogLeNet():
     return model
 
 if __name__ == "__main__":
-    model = LeNet()
+    model = Nvidia()
     print(model.summary())
