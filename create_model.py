@@ -48,6 +48,9 @@ else:
             validation_data=gen.flow(X_valid, y_valid, batch_size=BATCH_SIZE), 
             validation_steps=np.ceil(len(validation_samples)/BATCH_SIZE), 
             epochs=num_epochs, verbose=1)
+    # history_object = model.fit(x = train_generator, epochs=num_epochs, 
+    #                             verbose=1,  validation_data=gen.flow(X_valid, y_valid, batch_size=BATCH_SIZE), steps_per_epoch=np.ceil(len(train_samples)/BATCH_SIZE),
+    #                             validation_steps=np.ceil(len(validation_samples)/BATCH_SIZE))
 
 model.save('model.h5')
 
