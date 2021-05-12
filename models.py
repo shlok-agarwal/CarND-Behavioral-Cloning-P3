@@ -63,7 +63,7 @@ def Resnet_50():
     model = Model(inputs=model_input, outputs=predictions)
     return model
 
-def ResNet_18():
+def Resnet_18():
     return resnet_v1(input_shape=(160, 320, 3), depth=20)
 
 def GoogLeNet():
