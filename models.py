@@ -4,6 +4,7 @@ from keras.applications.resnet50 import ResNet50
 from keras.applications.inception_v3 import InceptionV3
 from resnet_v1 import resnet_v1
 import tensorflow as tf
+from visualize_layers import visualize_filters
 
 def simple():
     model = Sequential()
@@ -113,3 +114,4 @@ def GoogLeNet():
 if __name__ == "__main__":
     model = Nvidia()
     print(model.summary())
+    visualize_filters(model, 'conv2d_2')
