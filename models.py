@@ -4,7 +4,8 @@ from keras.applications.resnet50 import ResNet50
 from keras.applications.inception_v3 import InceptionV3
 from resnet_v1 import resnet_v1
 import tensorflow as tf
-from visualize_layers import visualize_filters
+from visualize_layers import visualize_filters, visualize_feature_map
+import matplotlib.image as mpimg
 
 def simple():
     model = Sequential()
@@ -114,4 +115,9 @@ def GoogLeNet():
 if __name__ == "__main__":
     model = Nvidia()
     print(model.summary())
-    visualize_filters(model, 'conv2d_2')
+
+    # viz stuff
+    # visualize_filters(model, 'conv2d_2')
+    # current_path = 'data/data/IMG/' + 'center_2016_12_01_13_33_07_834.jpg'
+    # image = mpimg.imread(current_path)
+    # visualize_feature_map(model, 'conv2d_2', image)
