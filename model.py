@@ -6,7 +6,7 @@ import sklearn
 from sklearn.model_selection import train_test_split
 from keras.models import Sequential
 from keras.layers import Lambda, Cropping2D
-from models import simple, LeNet, GoogLeNet, Resnet_18, Resnet_50, Nvidia, lr_schedule
+from model_lib import simple, LeNet, GoogLeNet, Resnet_18, Resnet_50, Nvidia, lr_schedule
 from preprocess_data import generator, getDataSet, getDataGen
 from tensorflow.keras.callbacks import LearningRateScheduler, ReduceLROnPlateau
 
@@ -24,13 +24,13 @@ train_samples, validation_samples = train_test_split(samples, test_size=0.2)
 
 # Set our batch size
 BATCH_SIZE= 8 if USE_RESNET_18 else 64
-num_epochs = 30
+num_epochs = 5
 
 # compile and train the model using the generator function
 train_generator = generator(train_samples, batch_size=BATCH_SIZE)
 validation_generator = generator(validation_samples, batch_size=BATCH_SIZE)
 
-model = Resnet_18() if USE_RESNET_18 else Nvidia()
+model = Resnet_18() if USE_RESNET_18 else simple()
 print(model.summary())
 
 model.compile(loss='mse', optimizer='adam')
