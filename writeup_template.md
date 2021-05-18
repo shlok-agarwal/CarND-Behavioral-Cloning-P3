@@ -118,10 +118,10 @@ I used the training data provided with this project. To augment the data, I flip
 ### 5.Experimentation with other model architectures
 
 Simple model:
-
+     
 ![image](https://user-images.githubusercontent.com/22652444/118588490-79a2de80-b76c-11eb-9f1b-410cc75be1a1.png)
-
-LeNet:
+         
+LeNet:      
 ![image](https://user-images.githubusercontent.com/22652444/118588518-87586400-b76c-11eb-905e-510f124f63a6.png)
 
 ### 6. Thoughts for future work
