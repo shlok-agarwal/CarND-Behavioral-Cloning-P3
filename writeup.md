@@ -1,5 +1,7 @@
 # **Behavioral Cloning** 
 
+You can find the video for this project [here](https://photos.app.goo.gl/6uaa7BsiQKfcA94V7)
+
 **Behavioral Cloning Project**
 
 The goals / steps of this project are the following:
