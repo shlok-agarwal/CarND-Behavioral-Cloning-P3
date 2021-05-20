@@ -17,12 +17,19 @@ with open('data/data/driving_log.csv') as csvfile:
     for line in reader:
         samples.append(line)
 
+# recorded data
+with open('data/recorded_data/driving_log.csv') as csvfile:
+    reader = csv.reader(csvfile)
+    next(reader) # skip header
+    for line in reader:
+        samples.append(line)
+
 from sklearn.model_selection import train_test_split
 train_samples, validation_samples = train_test_split(samples, test_size=0.2)
 
 # Set our batch size
 BATCH_SIZE= 64
-num_epochs = 50
+num_epochs = 20
 
 # compile and train the model using the generator function
 train_generator = generator(train_samples, batch_size=BATCH_SIZE)
@@ -47,7 +54,7 @@ history_object = model.fit_generator(train_generator,
             validation_data=validation_generator, 
             validation_steps=np.ceil(len(validation_samples)/BATCH_SIZE), 
             epochs=num_epochs, verbose=1, callbacks = callbacks)
-            
+
 model.save('model.h5')
 
 ### print the keys contained in the history object

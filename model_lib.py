@@ -34,9 +34,10 @@ def Nvidia():
     # Makes the input placeholder layer 160,320,3
     model_input = Input(shape=(160,320,3))
     crop = Cropping2D(cropping=((70,25), (0,0)), input_shape=(160,320,3))(model_input)
-    inp = Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(65,320,3))(crop)
+    gray = Lambda(lambda x: tf.image.rgb_to_grayscale(x))(crop)
+    inp = Lambda(lambda x: (x / 255.0) - 0.5, input_shape=(65,320,1))(gray)
 
-    c1 = Conv2D(24,5, strides=(2,2), activation="relu")(crop)
+    c1 = Conv2D(24,5, strides=(2,2), activation="relu")(inp)
     c2 = Conv2D(36,5, strides=(2,2), activation="relu")(c1)
     c3 = Conv2D(48,5, strides=(2,2))(c2)
     bnorm = BatchNormalization()(c3)

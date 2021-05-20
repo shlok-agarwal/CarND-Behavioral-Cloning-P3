@@ -6,7 +6,7 @@ import csv
 from sklearn.utils import shuffle
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-def generator(samples, batch_size=32, correct_factor = 0.2, num_cameras = 3):
+def generator(samples, batch_size=32, correct_factor = 0.3, num_cameras = 3):
     num_samples = len(samples)
     while 1: # Loop forever so the generator never terminates
         shuffle(samples)
@@ -19,9 +19,15 @@ def generator(samples, batch_size=32, correct_factor = 0.2, num_cameras = 3):
                 for i in range(num_cameras):
 
                     source_path = batch_sample[i]
-                    filename = source_path.split('/')[-1]
-                    name = 'data/data/IMG/' + filename
-                    
+            
+                    # detect recorded data
+                    tmp = source_path.split('\\' )[0]
+                    if tmp == 'C:':
+                        # recorded data files contain the absolute path to the image.
+                        name = source_path
+                    else:
+                        filename = source_path.split('/')[-1]
+                        name = 'data/data/IMG/' + filename
                     image = cv2.imread(name)
                     images.append(image)
                     measurement = float(batch_sample[3])

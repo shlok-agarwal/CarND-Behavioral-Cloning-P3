@@ -1,5 +1,7 @@
+run1
 data/*
 *.pyc
+*.mp4
 
 # exception to the rule
 !data/.gitkeep 
