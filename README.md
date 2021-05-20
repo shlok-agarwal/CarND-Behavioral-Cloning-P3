@@ -5,6 +5,8 @@ You can find the video for this project [here](https://photos.app.goo.gl/6uaa7Bs
 
 # Installation
 
+* System Setup
+
 To setup tensorflow to work on Windows with GPU, check out [this](https://towardsdatascience.com/setting-up-your-pc-workstation-for-deep-learning-tensorflow-and-pytorch-windows-9099b96035cb) resource.
 
 ```
@@ -21,4 +23,21 @@ pip install python-socketio=4.2.1
 conda install -c conda-forge eventlet 
 pip install flask
 conda install -c anaconda keras-gpu 
+```
+
+* Project setup
+
+You can find the simulation for your OS [here](https://github.com/udacity/self-driving-car-sim/blob/master/README.md)
+       
+To train the model:     
+
+```
+python model.py
+```
+This creates a model.h5 file.        
+   
+To use this model file in the simulator, open an instance of the simulator in autonomous mode and run
+
+```
+python drive.py model.h5
 ```
