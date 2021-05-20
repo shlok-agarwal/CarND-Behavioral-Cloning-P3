@@ -1,5 +1,8 @@
 You can find the video for this project [here](https://photos.app.goo.gl/6uaa7BsiQKfcA94V7)
 
+![Alt Text](https://user-images.githubusercontent.com/22652444/118917577-3167f580-b8ff-11eb-845b-538616d9cd33.gif)
+
+
 # Installation
 
 To setup tensorflow to work on Windows with GPU, check out [this](https://towardsdatascience.com/setting-up-your-pc-workstation-for-deep-learning-tensorflow-and-pytorch-windows-9099b96035cb) resource.
