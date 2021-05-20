@@ -1,4 +1,4 @@
-You can find the video for this project [here](https://photos.app.goo.gl/6uaa7BsiQKfcA94V7)
+You can find the video for this project [here](https://photos.app.goo.gl/6uaa7BsiQKfcA94V7) and writeup [here](https://github.com/shlok-agarwal/CarND-Behavioral-Cloning-P3/blob/master/writeup.md)
 
 ![Alt Text](https://user-images.githubusercontent.com/22652444/118917577-3167f580-b8ff-11eb-845b-538616d9cd33.gif)
 
