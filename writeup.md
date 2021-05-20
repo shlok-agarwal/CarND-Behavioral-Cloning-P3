@@ -72,7 +72,7 @@ The model contains 2 dropout layers in order to reduce overfitting. The model wa
 
 ```
 BATCH_SIZE= 64
-num_epochs = 50
+num_epochs = 20
 ```
 Along with these I used two callback functions to regulate the learning rate. See model.py::43
 
@@ -111,9 +111,13 @@ I used the training data provided with this project. To augment the data, I flip
                 augmented_measurements.append(measurement*-1.0)
 ```
 
+In addition to augmenting existing data, I also colled more data in training mode especially for performance at this intersection:
+![image](https://user-images.githubusercontent.com/22652444/118916481-0b415600-b8fd-11eb-8cbf-d8d5e3ff3d5a.png)
+
+
 ### 4. Final training and validatation loss
 
-![image](https://user-images.githubusercontent.com/22652444/118587954-7d823100-b76b-11eb-9c8e-c481f792721b.png)
+![image](https://user-images.githubusercontent.com/22652444/118915904-f0221680-b8fb-11eb-86bf-9cdff912514d.png)
 
 ### 5.Experimentation with other model architectures
 
